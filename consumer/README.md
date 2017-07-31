@@ -1,0 +1,1 @@
+Application to consume from Kafka

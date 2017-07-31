@@ -1,2 +1,3 @@
-Start the kafka server with : ./kafka/bin/kafka-server-start.sh ~/kafka/config/server.properties
-API Key: 9HSV8GURZDBO37F8
+Application to stream stock quotes. Run either the simulated data stream or the realtime data stream.
+
+Currently only configured to stream AAPL
