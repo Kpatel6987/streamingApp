@@ -1,6 +1,6 @@
 import json
 import time
-from streamingApp.producer.kafka_producer import Producer
+from stock_data_stream.producer.kafka_producer import Producer
 
 
 def get_simulated_data(symbol):
