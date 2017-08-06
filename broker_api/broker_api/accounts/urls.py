@@ -1,9 +1,9 @@
 from django.conf.urls import url
 from django.contrib import admin
 
-from .views import CreateUser, GetUsers
+from .views import GetAccounts
 
 urlpatterns = [
-    url(r'^$', GetUsers.as_view(), name='user_list'),
-    url(r'^register/$', CreateUser.as_view(), name='register'),
+    url(r'^$', GetAccounts.as_view(), name='account_list'),
+    # url(r'^register/$', CreateUser.as_view(), name='register'),
 ]

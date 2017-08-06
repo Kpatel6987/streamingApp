@@ -18,5 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include("broker_api.accounts.urls", namespace='accounts')),
+    url(r'^users/', include("broker_api.users.urls", namespace='users')),
+    url(r'^accounts/', include("broker_api.accounts.urls", namespace='accounts'))
 ]
