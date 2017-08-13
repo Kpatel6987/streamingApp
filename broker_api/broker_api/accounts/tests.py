@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from .serializers import AccountListSerializer
+from .serializers import AccountSerializer
 from .models import Account
 
 client = APIClient()
@@ -21,7 +21,7 @@ class GetAllAccountsTest(TestCase):
 
     def test_get_all_users(self):
         response = client.get('/accounts/')
-        serializer = AccountListSerializer(Account.objects.all(), many=True)
+        serializer = AccountSerializer(Account.objects.all(), many=True)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 

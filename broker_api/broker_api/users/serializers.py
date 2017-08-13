@@ -1,28 +1,21 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-
-
-class UserListSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(label='Email Address')
+    accounts = serializers.StringRelatedField(many=True)
     class Meta:
         model = User
         fields = [
             'username',
             'accounts',
             'email',
-        ]
-
-
-class CreateUserSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(label='Email Address')
-    class Meta:
-        model = User
-        fields = [
-            'username',
-            'email',
             'password',
         ]
-        extra_kwargs = {"password": {"write_only": True}}
+        extra_kwargs = {
+            "password": {"write_only": True},
+            "accounts": {"read_only": True}
+        }
 
     def validate(self, data):
         user_qs = User.objects.filter(email=data['email'])

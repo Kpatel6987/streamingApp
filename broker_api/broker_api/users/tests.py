@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from .serializers import UserListSerializer
+from .serializers import UserSerializer
 
 client = APIClient()
 
@@ -17,7 +17,7 @@ class GetAllUsersTest(TestCase):
 
     def test_get_all_users(self):
         response = client.get('/users/')
-        serializer = UserListSerializer(User.objects.all(), many=True)
+        serializer = UserSerializer(User.objects.all(), many=True)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -30,6 +30,7 @@ class CreateNewUsers(TestCase):
         self.payload = {
             'username':'test1',
             'email': 'test1@email.com',
+            'accounts': [],
             'password':'password'
         }
         self.same_user = {
@@ -59,22 +60,22 @@ class CreateNewUsers(TestCase):
         }
 
     def test_create_new_user(self):
-        response = client.post('/users/register/', self.payload, format='json')
+        response = client.post('/users/', self.payload, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_same_user_info(self):
-        response = client.post('/users/register/', self.payload, format='json')
-        response = client.post('/users/register/', self.same_user, format='json')
+        response = client.post('/users/', self.payload, format='json')
+        response = client.post('/users/', self.same_user, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        response = client.post('/users/register/', self.same_email, format='json')
+        response = client.post('/users/', self.same_email, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_missing_user_info(self):
-        response = client.post('/users/register/', self.missing_username, format='json')
+        response = client.post('/users/', self.missing_username, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        response = client.post('/users/register/', self.missing_email, format='json')
+        response = client.post('/users/', self.missing_email, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        response = client.post('/users/register/', self.missing_password, format='json')
+        response = client.post('/users/', self.missing_password, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 

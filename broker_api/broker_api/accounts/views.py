@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from rest_framework import generics
 from .models import Account
-from .serializers import AccountListSerializer
+from .serializers import AccountSerializer
 
-# class CreateUser(generics.CreateAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = CreateUserSerializer
-
-class GetAccounts(generics.ListAPIView):
+class ListCreateAccount(generics.ListCreateAPIView):
     queryset = Account.objects.all()
-    serializer_class = AccountListSerializer
+    serializer_class = AccountSerializer
+
+class RetrieveAccount(generics.RetrieveAPIView):
+    queryset = Account.objects.all()
+    serializer_class = AccountSerializer

@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'broker_api.users',
-    'broker_api.accounts'
+    'broker_api.accounts',
+    'broker_api.positions'
 ]
 
 MIDDLEWARE = [
